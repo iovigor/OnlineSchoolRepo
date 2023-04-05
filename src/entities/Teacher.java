@@ -20,4 +20,11 @@ public class Teacher {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                '}';
+    }
 }

@@ -21,4 +21,10 @@ public class AdditionalMaterial {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "AdditionalMaterial{" +
+                "id=" + id +
+                '}';
+    }
 }

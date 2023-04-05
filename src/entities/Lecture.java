@@ -12,6 +12,12 @@ public class Lecture {
         count++;
     }
 
+    public Lecture(int id, int courseId, Homework hw, AdditionalMaterial addMat) {
+        this(id);
+        this.courseId = courseId;
+        this.hw = hw;
+        this.addMat = addMat;
+    }
     public Homework getHw() {
         return hw;
     }
@@ -44,5 +50,15 @@ public class Lecture {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Lecture{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", hw=" + hw +
+                ", addMat=" + addMat +
+                '}';
     }
 }
