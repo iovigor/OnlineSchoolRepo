@@ -2,6 +2,7 @@ package entities;
 
 public class Lecture {
     private int id;
+    public int courseId;
     private static int count;
     private Homework hw;
     private AdditionalMaterial addMat;
@@ -23,10 +24,16 @@ public class Lecture {
         return id;
     }
 
+    public int getCourseId() {
+        return courseId;
+    }
     public static int getCount() {
         return count;
     }
 
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
     public void setHw(Homework hw) {
         this.hw = hw;
     }
