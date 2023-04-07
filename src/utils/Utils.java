@@ -7,6 +7,79 @@ import java.util.random.RandomGenerator;
 
 public class Utils {
 
+    public void setUpMenu() {
+
+        final Scanner scanner = new Scanner(System.in);
+        int command = 1;
+
+        while (command!=0) {
+            System.out.println("Please enter command:");
+            System.out.println("7. create lectures");
+            System.out.println("81. create objects by console");
+            System.out.println("82. create lectures by scanner");
+            System.out.println("91. choosing numbers from number range");
+            System.out.println("92. create 8 lectures and exit");
+            System.out.println("0. Exit");
+            command = scanner.nextInt();
+            switch (command) {
+                case 7:
+                    createLectures();
+                    break;
+                case 81:
+                    setUpConsoleOfCreationByType();
+                    break;
+                case 82:
+                    createLecturesByScanner();
+                    break;
+                case 91:
+                    choosenumbers();
+                    break;
+                case 92:
+                    createLecturesAndExit();
+                    break;
+                case 0:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Incorrect command");
+                    break;
+            }
+        }
+    }
+
+    public void createLecturesAndExit(){
+        LectureUtils LecUtils = new LectureUtils();
+        Lecture lec1 = LecUtils.create(1);
+        Lecture lec2 = LecUtils.create(2);
+        Lecture lec3 = LecUtils.create(3);
+        Lecture lec4 = LecUtils.create(4);
+        Lecture lec5 = LecUtils.create(5);
+        Lecture lec6 = LecUtils.create(6);
+        Lecture lec7 = LecUtils.create(7);
+        Lecture lec8 = LecUtils.create(8);
+        System.out.println("Number of lections created = "+Lecture.getCount());
+        System.exit(0);
+    }
+
+    public void choosenumbers() {
+
+        final Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please input start number...");
+        final int startNumber = scanner.nextInt();
+
+        System.out.println("Please input end number...");
+        final int endNumber = scanner.nextInt();
+
+        boolean correct = true;
+        while (correct) {
+            System.out.println("Please input number from " + startNumber + " to " + endNumber);
+            System.out.println("If not in range, then exit.");
+            final int curNumber = scanner.nextInt();
+            correct = (curNumber >= startNumber) && (curNumber <= endNumber);
+        }
+    }
+
     public void createLectures() {
         LectureUtils LecUtils = new LectureUtils();
         CourseUtils CourseUtils = new CourseUtils();
