@@ -1,6 +1,7 @@
 package utils;
 
 import entities.*;
+import repos.LectureRepo;
 
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
@@ -19,6 +20,8 @@ public class Utils {
             System.out.println("82. create lectures by scanner");
             System.out.println("91. choosing numbers from number range");
             System.out.println("92. create 8 lectures and exit");
+            System.out.println("101. create 3 lectures and 1 course");
+            System.out.println("102. print id for elements of lectures array");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -37,6 +40,12 @@ public class Utils {
                 case 92:
                     createLecturesAndExit();
                     break;
+                case 101:
+                    create3LecturesAnd1Course();
+                    break;
+                case 102:
+                    printIdForElementsOfArray();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -47,7 +56,38 @@ public class Utils {
         }
     }
 
-    public void createLecturesAndExit(){
+    private void printIdForElementsOfArray(){
+        Lecture[] lectures = LectureRepo.lectures;
+        for (int i = 0; i < lectures.length; i++) {
+            Lecture curLect = lectures[i];
+            if (curLect != null) {
+                int id = curLect.getId();
+                System.out.println(""+i+" element of array id is = "+id);
+            }
+        }
+    }
+
+    private void create3LecturesAnd1Course(){
+
+        CourseUtils CourseUtils = new CourseUtils();
+        Course course1 = CourseUtils.create(1);
+
+        LectureUtils LecUtils = new LectureUtils();
+
+        Lecture lec1 = LecUtils.create(1);
+        lec1.setCourseId(course1.getId());
+
+        Lecture lec2 = LecUtils.create(2);
+        lec2.setCourseId(course1.getId());
+
+        Lecture lec3 = LecUtils.create(3);
+        lec3.setCourseId(course1.getId());
+
+        System.out.println("Courses created = "+Course.getCount());
+        System.out.println("Lectures created = "+Lecture.getCount());
+    }
+
+    private void createLecturesAndExit(){
         LectureUtils LecUtils = new LectureUtils();
         Lecture lec1 = LecUtils.create(1);
         Lecture lec2 = LecUtils.create(2);
@@ -61,7 +101,7 @@ public class Utils {
         System.exit(0);
     }
 
-    public void choosenumbers() {
+    private void choosenumbers() {
 
         final Scanner scanner = new Scanner(System.in);
 
@@ -80,7 +120,7 @@ public class Utils {
         }
     }
 
-    public void createLectures() {
+    private void createLectures() {
         LectureUtils LecUtils = new LectureUtils();
         CourseUtils CourseUtils = new CourseUtils();
 
@@ -108,7 +148,7 @@ public class Utils {
         System.out.println("Lecture count = " + Lecture.getCount());
     }
 
-    public void setUpConsoleOfCreationByType() {
+    private void setUpConsoleOfCreationByType() {
 
         CourseUtils courseUtils = new CourseUtils();
         TeacherUtils teacherUtils = new TeacherUtils();
@@ -148,7 +188,7 @@ public class Utils {
 
     }
 
-    public void createLecturesByScanner() {
+    private void createLecturesByScanner() {
 
         int type = 0;
         LectureUtils lectureUtils = new LectureUtils();
