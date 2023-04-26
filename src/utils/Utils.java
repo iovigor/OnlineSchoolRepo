@@ -22,6 +22,7 @@ public class Utils {
             System.out.println("92. create 8 lectures and exit");
             System.out.println("101. create 3 lectures and 1 course");
             System.out.println("102. print id for elements of lectures array");
+            System.out.println("11. test new functions of LectureRepo");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -46,6 +47,9 @@ public class Utils {
                 case 102:
                     printIdForElementsOfArray();
                     break;
+                case 11:
+                    testNewFunctionsOfLectureRepo();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -56,8 +60,37 @@ public class Utils {
         }
     }
 
+    private void testNewFunctionsOfLectureRepo(){
+
+        LectureUtils lecUtils = new LectureUtils();
+        LectureRepo lecRepo = new LectureRepo();
+
+        Lecture lec1 = lecUtils.create(1);
+        Lecture lec2 = lecUtils.create(2);
+        Lecture lec3 = lecUtils.create(3);
+        Lecture lec4 = lecUtils.create(4);
+        Lecture lec5 = lecUtils.create(5);
+
+        Lecture[] lectures = lecRepo.getAll();
+        System.out.println("Printing result of getAll");
+        for (int i = 0; i < lectures.length; i++) {
+            System.out.println(lectures[i]);
+        }
+
+        System.out.println("Printing result of getById = 2");
+        Lecture lecFounded = lecRepo.getById(2);
+        System.out.println(lecFounded);
+
+        System.out.println("Printing result of deleteById = 2");
+        lecRepo.deleteById(2);
+        for (int i = 0; i < lectures.length; i++) {
+            System.out.println(lectures[i]);
+        }
+
+    }
+
     private void printIdForElementsOfArray(){
-        Lecture[] lectures = LectureRepo.lectures;
+        Lecture[] lectures = LectureRepo.getLectures();
         for (int i = 0; i < lectures.length; i++) {
             Lecture curLect = lectures[i];
             if (curLect != null) {
@@ -69,18 +102,18 @@ public class Utils {
 
     private void create3LecturesAnd1Course(){
 
-        CourseUtils CourseUtils = new CourseUtils();
-        Course course1 = CourseUtils.create(1);
+        CourseUtils courseUtils = new CourseUtils();
+        Course course1 = courseUtils.create(1);
 
-        LectureUtils LecUtils = new LectureUtils();
+        LectureUtils lecUtils = new LectureUtils();
 
-        Lecture lec1 = LecUtils.create(1);
+        Lecture lec1 = lecUtils.create(1);
         lec1.setCourseId(course1.getId());
 
-        Lecture lec2 = LecUtils.create(2);
+        Lecture lec2 = lecUtils.create(2);
         lec2.setCourseId(course1.getId());
 
-        Lecture lec3 = LecUtils.create(3);
+        Lecture lec3 = lecUtils.create(3);
         lec3.setCourseId(course1.getId());
 
         System.out.println("Courses created = "+Course.getCount());

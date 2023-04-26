@@ -1,6 +1,6 @@
 package entities;
 
-public class Homework {
+public class Homework extends Entity {
     private int id;
     private static int count;
 

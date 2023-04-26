@@ -1,6 +1,6 @@
 package entities;
 
-public class Lecture {
+public class Lecture extends Entity {
     private int id;
     public int courseId;
     private static int count;
