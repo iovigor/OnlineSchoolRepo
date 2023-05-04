@@ -1,15 +1,20 @@
 package repos;
 
-import entities.Homework;
+import entities.Entity;
 import entities.Lecture;
 
 import java.util.Arrays;
 
-public class LectureRepo{
+public class LectureRepo extends EntityRepo {
 
-    public static Lecture[] lectures;
+    private static Lecture[] lectures;
 
-    public static void add(Lecture lecture) {
+    public static Lecture[] getLectures() {
+        return lectures;
+    }
+
+    @Override
+    public void add(Lecture lecture) {
 
         int curindex = 0;
         if (lectures == null) {
@@ -22,4 +27,41 @@ public class LectureRepo{
         lectures[curindex] = lecture;
 
     }
+
+    @Override
+    public Lecture[] getAll() {
+        return lectures;
+    }
+
+    @Override
+    public Lecture getById(int id) {
+        Lecture lectFounded = null;
+        int i = getIndexById(id);
+        if (i != -1) {
+            lectFounded = lectures[i];
+        }
+        return lectFounded;
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+        int i = getIndexById(id);
+        if (i != -1) {
+            lectures[i] = null;
+        }
+
+    }
+
+    @Override
+    protected int getIndexById(int id) {
+        int index = -1;
+        for (int i = 0; i < lectures.length; i++) {
+            if (lectures[i] != null && lectures[i].getId() == id) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
 }
