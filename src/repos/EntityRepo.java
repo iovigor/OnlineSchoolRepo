@@ -19,6 +19,8 @@ public abstract class EntityRepo {
 
     public void add(Teacher teacher){};
 
+    public void add(Person person){};
+
     public abstract Entity[] getAll();
 
     public abstract Entity getById(int id);

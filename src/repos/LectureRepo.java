@@ -40,6 +40,9 @@ public class LectureRepo extends EntityRepo {
         if (i != -1) {
             lectFounded = lectures[i];
         }
+        if (lectFounded != null) {
+            System.out.println("Founded lecture by id - "+lectFounded);
+        }
         return lectFounded;
     }
 
