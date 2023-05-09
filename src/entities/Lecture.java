@@ -2,6 +2,8 @@ package entities;
 
 public class Lecture extends Entity {
     private int id;
+    private String name;
+    private String description;
     private int courseId;
     private int personId;
     private static int count;
@@ -12,7 +14,11 @@ public class Lecture extends Entity {
         this.id = id;
         count++;
     }
-
+    public Lecture(int id, String name, String description) {
+        this(id);
+        this.name = name;
+        this.description = description;
+    }
     public Lecture(int id, int courseId, Homework hw, AdditionalMaterial addMat) {
         this(id);
         this.courseId = courseId;
@@ -24,6 +30,23 @@ public class Lecture extends Entity {
         this.courseId = courseId;
         this.personId = personId;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public int getPersonId() {
         return personId;
     }
@@ -68,6 +91,8 @@ public class Lecture extends Entity {
     public String toString() {
         return "Lecture{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", courseId=" + courseId +
                 ", personId=" + personId +
                 ", hw=" + hw +

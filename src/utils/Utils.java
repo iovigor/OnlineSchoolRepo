@@ -5,6 +5,8 @@ import repos.*;
 
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
 
@@ -24,6 +26,7 @@ public class Utils {
             System.out.println("102. print id for elements of lectures array");
             System.out.println("11. test new functions of LectureRepo");
             System.out.println("13. enum testing");
+            System.out.println("14. string testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -54,6 +57,9 @@ public class Utils {
                 case 13:
                     testEnum();
                     break;
+                case 14:
+                    testString();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -62,6 +68,22 @@ public class Utils {
                     break;
             }
         }
+    }
+
+    private void testString() {
+
+        PersonUtils personUtils = new PersonUtils();
+        LectureUtils lecUtils = new LectureUtils();
+        CourseUtils courseUtils = new CourseUtils();
+
+        Course course1 = courseUtils.create(1, "First course");
+        System.out.println("Course with name - "+course1);
+
+        Lecture lecture1 = lecUtils.create(1, "First lecture", "Entering lecture");
+        System.out.println("Lecture with name - "+lecture1);
+
+        Person person1 = personUtils.create(1, "Taras", "Tarasovich", "38067111111", "test@ukr.net");
+        System.out.println("Person with name - "+person1);
     }
 
     private void testEnum() {
@@ -285,6 +307,50 @@ public class Utils {
 
         System.out.println("Good bye!");
 
+    }
+
+    public static void validateEmail(String email) {
+
+        if (emailValidator(email)) {
+            System.out.println("The email address " + email + " is valid");
+        }
+        else {
+            System.out.println("The email address " + email + " is invalid");
+        }
+
+    }
+    public static void validatePhone(String phone) {
+
+        if (phoneValidator(phone)) {
+            System.out.println("The phone " + phone + " is valid");
+        }
+        else {
+            System.out.println("The phone " + phone + " is invalid");
+        }
+
+    }
+    private static final String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    private static final String PHONE_REGEX = "^[0-9]*$";
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+    private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
+
+    private static boolean emailValidator(String email)
+    {
+        if (email == null) {
+            return false;
+        }
+
+        Matcher matcher = EMAIL_PATTERN.matcher(email);
+        return matcher.matches();
+    }
+    private static boolean phoneValidator(String phone)
+    {
+        if (phone == null) {
+            return false;
+        }
+
+        Matcher matcher = PHONE_PATTERN.matcher(phone);
+        return matcher.matches();
     }
 
 }
