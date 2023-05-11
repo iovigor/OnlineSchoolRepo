@@ -1,7 +1,7 @@
 package utils;
 
 import entities.*;
-import repos.LectureRepo;
+import repos.*;
 
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
@@ -23,6 +23,7 @@ public class Utils {
             System.out.println("101. create 3 lectures and 1 course");
             System.out.println("102. print id for elements of lectures array");
             System.out.println("11. test new functions of LectureRepo");
+            System.out.println("13. enum testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -50,6 +51,9 @@ public class Utils {
                 case 11:
                     testNewFunctionsOfLectureRepo();
                     break;
+                case 13:
+                    testEnum();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -58,6 +62,28 @@ public class Utils {
                     break;
             }
         }
+    }
+
+    private void testEnum() {
+
+        PersonUtils personUtils = new PersonUtils();
+        PersonRepo personRepo = new PersonRepo();
+        LectureUtils lecUtils = new LectureUtils();
+        LectureRepo lecRepo = new LectureRepo();
+
+        Person student = personUtils.create(1, 1, Role.STUDENT);
+        Person teacher = personUtils.create(2, 2, Role.TEACHER);
+
+        System.out.println("Created student - "+student);
+        System.out.println("Created teacher - "+teacher);
+
+        int lecId = 1;
+        Lecture lec1 = lecUtils.create(lecId, teacher.getCourseId(), teacher.getId());
+        System.out.println("Created lecture with teacher - "+lec1);
+
+        System.out.println("Now we are getting lecture by id = "+lecId);
+        lecRepo.getById(lecId);
+
     }
 
     private void testNewFunctionsOfLectureRepo(){
