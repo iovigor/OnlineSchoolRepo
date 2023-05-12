@@ -27,6 +27,7 @@ public class Utils {
             System.out.println("11. test new functions of LectureRepo");
             System.out.println("13. enum testing");
             System.out.println("14. string testing");
+            System.out.println("15. generic testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -60,6 +61,9 @@ public class Utils {
                 case 14:
                     testString();
                     break;
+                case 15:
+                    testGeneric();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -67,6 +71,38 @@ public class Utils {
                     System.out.println("Incorrect command");
                     break;
             }
+        }
+    }
+    private void testGeneric() {
+
+        Course[] courses = new Course[1];
+        GenericRepo<Course> courseRepo = new GenericRepo(courses);
+
+        Course course1 = new Course(1);
+        Course course2 = new Course(2);
+
+        System.out.println("Size = "+courseRepo.size());
+        System.out.println("IsEmpty = "+courseRepo.isEmpty());
+
+        courseRepo.add(course1);
+
+        System.out.println("Get index 0 = "+courseRepo.get(0));
+
+        System.out.println("Print after add");
+        for (int i = 0; i < courseRepo.size(); i++) {
+            System.out.println(courseRepo.get(i));
+        }
+
+        courseRepo.add(3, course2);
+        System.out.println("Print after added by index 3");
+        for (int i = 0; i < courseRepo.size(); i++) {
+            System.out.println(courseRepo.get(i));
+        }
+
+        courseRepo.remove(3);
+        System.out.println("Print after remove by index 3");
+        for (int i = 0; i < courseRepo.size(); i++) {
+            System.out.println(courseRepo.get(i));
         }
     }
 
