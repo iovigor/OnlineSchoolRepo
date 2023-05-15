@@ -11,6 +11,12 @@ public class CourseUtils {
         coursesRepo.add(course);
         return course;
     }
+    public Course create(int id, String name) {
+        Course course = new Course(id, name);
+        CourseRepo coursesRepo = new CourseRepo();
+        coursesRepo.add(course);
+        return course;
+    }
     public Course create(int id, Teacher teacher, Student student, Lecture lecture) {
         Course course = new Course(id, teacher, student, lecture);
         CourseRepo coursesRepo = new CourseRepo();

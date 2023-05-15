@@ -2,6 +2,7 @@ package entities;
 
 public class Course extends Entity {
     private int id;
+    private String name;
     private static int count;
     private Teacher teacher;
     private Student student;
@@ -11,12 +12,26 @@ public class Course extends Entity {
         this.id = id;
         count++;
     }
+
+    public Course(int id, String name) {
+        this(id);
+        this.name = name;
+    }
     public Course(int id, Teacher teacher, Student student, Lecture lecture) {
         this(id);
         this.teacher = teacher;
         this.student = student;
         this.lecture = lecture;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public Teacher getTeacher() {
         return teacher;
     }
@@ -56,6 +71,7 @@ public class Course extends Entity {
     public String toString() {
         return "Course{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", teacher=" + teacher +
                 ", student=" + student +
                 ", lecture=" + lecture +
