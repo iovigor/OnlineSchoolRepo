@@ -3,6 +3,8 @@ package utils;
 import entities.*;
 import repos.AdditionMaterialRepo;
 import repos.CourseRepo;
+import repos.GenericRepo;
+import repos.HomeworkRepo;
 
 public class CourseUtils {
     public Course create(int id){
@@ -23,4 +25,5 @@ public class CourseUtils {
         coursesRepo.add(course);
         return course;
     }
+
 }

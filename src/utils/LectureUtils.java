@@ -1,6 +1,7 @@
 package utils;
 
 import entities.*;
+import repos.GenericRepo;
 import repos.LectureRepo;
 
 public class LectureUtils {

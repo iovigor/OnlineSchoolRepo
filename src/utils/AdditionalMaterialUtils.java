@@ -1,7 +1,7 @@
 package utils;
 
 import entities.AdditionalMaterial;
-import repos.AdditionMaterialRepo;
+import repos.*;
 
 public class AdditionalMaterialUtils {
     public AdditionalMaterial create(int id){
