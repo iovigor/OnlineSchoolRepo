@@ -1,6 +1,7 @@
 package utils;
 
 import entities.*;
+import org.w3c.dom.ls.LSOutput;
 import repos.*;
 
 import java.util.Scanner;
@@ -28,6 +29,7 @@ public class Utils {
             System.out.println("13. enum testing");
             System.out.println("14. string testing");
             System.out.println("15. generic testing");
+            System.out.println("16. oop testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -64,6 +66,9 @@ public class Utils {
                 case 15:
                     testGeneric();
                     break;
+                case 16:
+                    testOOP();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -73,9 +78,47 @@ public class Utils {
             }
         }
     }
+
+    private void testOOP() {
+
+        HomeworkUtils hwUtils = new HomeworkUtils();
+        HomeworkRepo homeworkRepo = new HomeworkRepo();
+        LectureUtils lecUtils = new LectureUtils();
+
+        Homework hw1 = hwUtils.create(1, "task 1");
+        Homework hw2 = hwUtils.create(2, "task 2");
+        Homework hw3 = hwUtils.create(3, "task 3");
+
+        Homework[] hwArray = homeworkRepo.getAll();
+
+        System.out.println("Created homeworks with tasks:");
+        for (Homework hw:
+                hwArray) {
+            System.out.println(hw);
+        }
+
+        Lecture lec1 = lecUtils.create(1);
+        lec1.setHomeworks(hwArray);
+
+        for (Homework hw:
+                hwArray) {
+            hw.setLectureId(1);
+        }
+
+        System.out.println("Lecture after adding homeworks - "+lec1);
+
+        System.out.println("Homeworks after adding to lecture:");
+        for (Homework hw:
+                hwArray) {
+            System.out.println(hw);
+        }
+    }
+
     private void testGeneric() {
 
-        Course[] courses = new Course[1];
+        System.out.println("It is not working because of next tasks!");
+
+        /*Course[] courses = new Course[1];
         GenericRepo<Course> courseRepo = new GenericRepo(courses);
 
         Course course1 = new Course(1);
@@ -103,7 +146,7 @@ public class Utils {
         System.out.println("Print after remove by index 3");
         for (int i = 0; i < courseRepo.size(); i++) {
             System.out.println(courseRepo.get(i));
-        }
+        }*/
     }
 
     private void testString() {

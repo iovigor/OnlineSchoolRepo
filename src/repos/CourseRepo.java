@@ -4,7 +4,7 @@ import entities.Course;
 
 import java.util.Arrays;
 
-public class CourseRepo extends EntityRepo {
+public class CourseRepo implements CourseInt {
 
     private static Course[] courses;
 
@@ -15,8 +15,8 @@ public class CourseRepo extends EntityRepo {
         if (courses == null) {
             courses = new Course[1];
         } else {
-            curindex = courses.length - 1;
-            int newLength = courses.length * 3 / 2 + 1;
+            curindex = courses.length;
+            int newLength = courses.length + 1;
             courses = Arrays.copyOf(courses, newLength);
         }
         courses[curindex] = course;
@@ -53,7 +53,7 @@ public class CourseRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < courses.length; i++) {
             if (courses[i] != null && courses[i].getId() == id) {

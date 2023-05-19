@@ -5,7 +5,7 @@ import entities.Teacher;
 
 import java.util.Arrays;
 
-public class TeacherRepo extends EntityRepo {
+public class TeacherRepo implements TeacherInt {
 
     private static Teacher[] teachers;
 
@@ -16,8 +16,8 @@ public class TeacherRepo extends EntityRepo {
         if (teachers == null) {
             teachers = new Teacher[1];
         } else {
-            curindex = teachers.length - 1;
-            int newLength = teachers.length * 3 / 2 + 1;
+            curindex = teachers.length;
+            int newLength = teachers.length + 1;
             teachers = Arrays.copyOf(teachers, newLength);
         }
         teachers[curindex] = teacher;
@@ -54,7 +54,7 @@ public class TeacherRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < teachers.length; i++) {
             if (teachers[i] != null && teachers[i].getId() == id) {

@@ -2,7 +2,7 @@ package entities;
 
 import utils.Utils;
 
-public class Person  extends Entity {
+public class Person {
 
     private int id;
     private String firstName;

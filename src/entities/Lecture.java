@@ -1,6 +1,8 @@
 package entities;
 
-public class Lecture extends Entity {
+import java.util.Arrays;
+
+public class Lecture {
     private int id;
     private String name;
     private String description;
@@ -9,6 +11,7 @@ public class Lecture extends Entity {
     private static int count;
     private Homework hw;
     private AdditionalMaterial addMat;
+    private Homework[] homeworks;
 
     public Lecture(int id) {
         this.id = id;
@@ -29,6 +32,14 @@ public class Lecture extends Entity {
         this(id);
         this.courseId = courseId;
         this.personId = personId;
+    }
+
+    public Homework[] getHomeworks() {
+        return homeworks;
+    }
+
+    public void setHomeworks(Homework[] homeworks) {
+        this.homeworks = homeworks;
     }
 
     public void setName(String name) {
@@ -97,6 +108,7 @@ public class Lecture extends Entity {
                 ", personId=" + personId +
                 ", hw=" + hw +
                 ", addMat=" + addMat +
+                ", homeworks=" + Arrays.toString(homeworks) +
                 '}';
     }
 }

@@ -5,7 +5,7 @@ import entities.Lecture;
 
 import java.util.Arrays;
 
-public class AdditionMaterialRepo extends EntityRepo {
+public class AdditionMaterialRepo implements AdditionalMaterialInt {
 
     private static AdditionalMaterial[] addMats;
 
@@ -16,8 +16,8 @@ public class AdditionMaterialRepo extends EntityRepo {
         if (addMats == null) {
             addMats = new AdditionalMaterial[1];
         } else {
-            curindex = addMats.length - 1;
-            int newLength = addMats.length * 3 / 2 + 1;
+            curindex = addMats.length;
+            int newLength = addMats.length + 1;
             addMats = Arrays.copyOf(addMats, newLength);
         }
         addMats[curindex] = addMat;
@@ -54,7 +54,7 @@ public class AdditionMaterialRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < addMats.length; i++) {
             if (addMats[i] != null && addMats[i].getId() == id) {
