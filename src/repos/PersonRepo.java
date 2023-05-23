@@ -1,5 +1,6 @@
 package repos;
 
+import entities.EntityNotFoundException;
 import entities.Person;
 
 import java.util.Arrays;
@@ -34,12 +35,19 @@ public class PersonRepo implements PersonInt {
 
     @Override
     public Person getById(int id) {
-        Person student = null;
+        Person person = null;
         int i = getIndexById(id);
         if (i != -1) {
-            student = persons[i];
+            person = persons[i];
         }
-        return student;
+        if (person == null) {
+            try {
+                throw new EntityNotFoundException();
+            } catch (EntityNotFoundException e) {
+                System.out.println(e.getMessage());;
+            }
+        }
+        return person;
     }
 
     @Override

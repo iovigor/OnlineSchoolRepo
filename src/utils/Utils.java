@@ -4,6 +4,7 @@ import entities.*;
 import org.w3c.dom.ls.LSOutput;
 import repos.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
@@ -30,6 +31,7 @@ public class Utils {
             System.out.println("14. string testing");
             System.out.println("15. generic testing");
             System.out.println("16. oop testing");
+            System.out.println("17. exceptions testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -69,14 +71,35 @@ public class Utils {
                 case 16:
                     testOOP();
                     break;
+                case 17:
+                    testExceptions();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Incorrect command");
+                    try {
+                        throw new IOException();
+                    } catch (IOException e) {
+                        System.out.println("Incorrect command");
+                    }
                     break;
             }
         }
+    }
+
+    private void testExceptions(){
+
+        HomeworkUtils hwUtils = new HomeworkUtils();
+        HomeworkRepo homeworkRepo = new HomeworkRepo();
+
+        Homework hw1 = hwUtils.create(1, "task 1");
+
+        System.out.println("Trying to catch the exception - Entity not found");
+        homeworkRepo.getById(2);
+
+        System.out.println("Trying to catch the exception with phone - 111@ukr.net");
+        validatePhone("111@ukr.net");
     }
 
     private void testOOP() {
@@ -394,7 +417,11 @@ public class Utils {
             System.out.println("The email address " + email + " is valid");
         }
         else {
-            System.out.println("The email address " + email + " is invalid");
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                System.out.println("The email address " + email + " is invalid");
+            }
         }
 
     }
@@ -404,7 +431,11 @@ public class Utils {
             System.out.println("The phone " + phone + " is valid");
         }
         else {
-            System.out.println("The phone " + phone + " is invalid");
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                System.out.println("The phone " + phone + " is invalid");
+            }
         }
 
     }
