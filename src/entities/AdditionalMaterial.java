@@ -1,6 +1,6 @@
 package entities;
 
-public class AdditionalMaterial extends Entity{
+public class AdditionalMaterial{
     private int id;
     private static int count;
 

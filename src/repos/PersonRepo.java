@@ -4,7 +4,7 @@ import entities.Person;
 
 import java.util.Arrays;
 
-public class PersonRepo extends EntityRepo {
+public class PersonRepo implements PersonInt {
 
     private static Person[] persons;
 
@@ -15,8 +15,8 @@ public class PersonRepo extends EntityRepo {
         if (persons == null) {
             persons = new Person[1];
         } else {
-            curindex = persons.length - 1;
-            int newLength = persons.length * 3 / 2 + 1;
+            curindex = persons.length;
+            int newLength = persons.length + 1;
             persons = Arrays.copyOf(persons, newLength);
         }
         persons[curindex] = person;
@@ -53,7 +53,7 @@ public class PersonRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < persons.length; i++) {
             if (persons[i] != null && persons[i].getId() == id) {

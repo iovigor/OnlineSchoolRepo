@@ -5,7 +5,7 @@ import entities.Lecture;
 
 import java.util.Arrays;
 
-public class LectureRepo extends EntityRepo {
+public class LectureRepo implements LectureInt {
 
     private static Lecture[] lectures;
 
@@ -21,7 +21,7 @@ public class LectureRepo extends EntityRepo {
             lectures = new Lecture[1];
         } else {
             curindex = lectures.length;
-            int newLength = lectures.length * 3 / 2 + 1;
+            int newLength = lectures.length + 1;
             lectures = Arrays.copyOf(lectures, newLength);
         }
         lectures[curindex] = lecture;
@@ -57,7 +57,7 @@ public class LectureRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < lectures.length; i++) {
             if (lectures[i] != null && lectures[i].getId() == id) {

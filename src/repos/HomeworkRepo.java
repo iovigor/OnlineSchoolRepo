@@ -5,7 +5,7 @@ import entities.Homework;
 
 import java.util.Arrays;
 
-public class HomeworkRepo extends EntityRepo {
+public class HomeworkRepo implements HomeworkInt {
 
     private static Homework[] homeworks;
     @Override
@@ -15,8 +15,8 @@ public class HomeworkRepo extends EntityRepo {
         if (homeworks == null) {
             homeworks = new Homework[1];
         } else {
-            curindex = homeworks.length - 1;
-            int newLength = homeworks.length * 3 / 2 + 1;
+            curindex = homeworks.length;
+            int newLength = homeworks.length + 1;
             homeworks = Arrays.copyOf(homeworks, newLength);
         }
         homeworks[curindex] = homework;
@@ -53,7 +53,7 @@ public class HomeworkRepo extends EntityRepo {
     }
 
     @Override
-    protected int getIndexById(int id) {
+    public int getIndexById(int id) {
         int index = -1;
         for (int i = 0; i < homeworks.length; i++) {
             if (homeworks[i] != null && homeworks[i].getId() == id) {
