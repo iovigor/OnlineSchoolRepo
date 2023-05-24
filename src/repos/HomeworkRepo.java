@@ -1,6 +1,6 @@
 package repos;
 
-import entities.Course;
+import entities.EntityNotFoundException;
 import entities.Homework;
 
 import java.util.Arrays;
@@ -38,6 +38,13 @@ public class HomeworkRepo implements HomeworkInt {
         int i = getIndexById(id);
         if (i != -1) {
             hw = homeworks[i];
+        }
+        if (hw == null) {
+            try {
+                throw new EntityNotFoundException();
+            } catch (EntityNotFoundException e) {
+                System.out.println(e.getMessage());;
+            }
         }
         return hw;
     }

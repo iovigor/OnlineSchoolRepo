@@ -1,6 +1,6 @@
 package repos;
 
-import entities.Lecture;
+import entities.EntityNotFoundException;
 import entities.Student;
 
 import java.util.Arrays;
@@ -39,6 +39,13 @@ public class StudentRepo implements StudentInt {
         int i = getIndexById(id);
         if (i != -1) {
             student = students[i];
+        }
+        if (student == null) {
+            try {
+                throw new EntityNotFoundException();
+            } catch (EntityNotFoundException e) {
+                System.out.println(e.getMessage());;
+            }
         }
         return student;
     }

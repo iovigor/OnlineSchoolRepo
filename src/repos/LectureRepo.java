@@ -1,6 +1,6 @@
 package repos;
 
-import entities.Entity;
+import entities.EntityNotFoundException;
 import entities.Lecture;
 
 import java.util.Arrays;
@@ -42,6 +42,13 @@ public class LectureRepo implements LectureInt {
         }
         if (lectFounded != null) {
             System.out.println("Founded lecture by id - "+lectFounded);
+        }
+        if (lectFounded == null) {
+            try {
+                throw new EntityNotFoundException();
+            } catch (EntityNotFoundException e) {
+                System.out.println(e.getMessage());;
+            }
         }
         return lectFounded;
     }

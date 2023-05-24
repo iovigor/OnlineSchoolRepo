@@ -1,7 +1,7 @@
 package repos;
 
 import entities.AdditionalMaterial;
-import entities.Lecture;
+import entities.EntityNotFoundException;
 
 import java.util.Arrays;
 
@@ -39,6 +39,13 @@ public class AdditionMaterialRepo implements AdditionalMaterialInt {
         int i = getIndexById(id);
         if (i != -1) {
             addMat = addMats[i];
+        }
+        if (addMat == null) {
+            try {
+                throw new EntityNotFoundException();
+            } catch (EntityNotFoundException e) {
+                System.out.println(e.getMessage());;
+            }
         }
         return addMat;
     }
