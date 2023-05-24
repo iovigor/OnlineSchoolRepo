@@ -1,7 +1,7 @@
 package entities;
 
 public class AdditionalMaterial{
-    private int id;
+    private Integer id;
     private static int count;
 
     public AdditionalMaterial(int id) {

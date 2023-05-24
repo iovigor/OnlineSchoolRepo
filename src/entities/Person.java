@@ -4,7 +4,7 @@ import utils.Utils;
 
 public class Person {
 
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String phone;
