@@ -32,6 +32,7 @@ public class Utils {
             System.out.println("15. generic testing");
             System.out.println("16. oop testing");
             System.out.println("17. exceptions testing");
+            System.out.println("18. iterator testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -74,6 +75,9 @@ public class Utils {
                 case 17:
                     testExceptions();
                     break;
+                case 18:
+                    testIterator();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -86,6 +90,28 @@ public class Utils {
                     break;
             }
         }
+    }
+
+    private void testIterator() {
+
+        HomeworkUtils hwUtils = new HomeworkUtils();
+        Homework hw1 = hwUtils.create(1, "task 1");
+        Homework hw2 = hwUtils.create(2, "task 1");
+        Homework hw3 = hwUtils.create(3, "task 1");
+        Homework hw4 = hwUtils.create(4, "task 1");
+
+        Homework[] homeworks = new Homework[] {hw1, hw2, hw3, hw4};
+        SimpleIterator<Homework> simpleIterator = new SimpleIterator(homeworks, 0);
+
+        System.out.println("SimpleIterator after creation:");
+        System.out.println(simpleIterator);
+
+        System.out.println("Has next = "+simpleIterator.hasNext());
+        System.out.println("Next = "+simpleIterator.next());
+        System.out.println("After remove :");
+        simpleIterator.remove();
+        System.out.println(simpleIterator);
+        System.out.println("Find all = "+simpleIterator.findAll().toString());
     }
 
     private void testExceptions(){

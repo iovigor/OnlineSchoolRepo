@@ -3,7 +3,7 @@ package entities;
 import java.util.Arrays;
 
 public class Lecture {
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private int courseId;

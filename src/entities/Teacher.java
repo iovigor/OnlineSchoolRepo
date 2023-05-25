@@ -1,7 +1,7 @@
 package entities;
 
 public class Teacher {
-    private int id;
+    private Integer id;
     private static int count;
 
     public Teacher(int id) {
