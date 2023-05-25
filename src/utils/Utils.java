@@ -33,6 +33,7 @@ public class Utils {
             System.out.println("16. oop testing");
             System.out.println("17. exceptions testing");
             System.out.println("18. iterator testing");
+            System.out.println("19. list testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -78,6 +79,9 @@ public class Utils {
                 case 18:
                     testIterator();
                     break;
+                case 19:
+                    testList();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -90,6 +94,18 @@ public class Utils {
                     break;
             }
         }
+    }
+
+    private void testList(){
+
+        AdditionMaterialRepo addMatRepo = new AdditionMaterialRepo();
+        AdditionalMaterialUtils addMatUtils = new AdditionalMaterialUtils();
+
+        AdditionalMaterial addMat1 = addMatUtils.create(1,"add mat 1", 1, ResourceType.BOOK);
+        AdditionalMaterial addMat2 = addMatUtils.create(2,"add mat 2", 1, ResourceType.VIDEO);
+
+        System.out.println("Array after adding = "+addMatRepo.getAll().toString());
+
     }
 
     private void testIterator() {
