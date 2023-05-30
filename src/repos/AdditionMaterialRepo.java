@@ -3,33 +3,25 @@ package repos;
 import entities.AdditionalMaterial;
 import entities.EntityNotFoundException;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class AdditionMaterialRepo implements AdditionalMaterialInt {
 
-    private static AdditionalMaterial[] addMats;
+    private static ArrayList<AdditionalMaterial> addMats = new ArrayList<>();
 
     @Override
     public void add(AdditionalMaterial addMat) {
 
-        int curindex = 0;
-        if (addMats == null) {
-            addMats = new AdditionalMaterial[1];
-        } else {
-            curindex = addMats.length;
-            int newLength = addMats.length + 1;
-            addMats = Arrays.copyOf(addMats, newLength);
-        }
-        addMats[curindex] = addMat;
+        addMats.add(addMat);
 
     }
 
-    public static AdditionalMaterial[] getAddMats() {
+    public static ArrayList<AdditionalMaterial> getAddMats() {
         return addMats;
     }
 
     @Override
-    public AdditionalMaterial[] getAll() {
+    public ArrayList<AdditionalMaterial> getAll() {
         return addMats;
     }
 
@@ -38,7 +30,7 @@ public class AdditionMaterialRepo implements AdditionalMaterialInt {
         AdditionalMaterial addMat = null;
         int i = getIndexById(id);
         if (i != -1) {
-            addMat = addMats[i];
+            addMat = addMats.get(i);
         }
         if (addMat == null) {
             try {
@@ -54,19 +46,19 @@ public class AdditionMaterialRepo implements AdditionalMaterialInt {
     public void deleteById(int id) {
 
         int i = getIndexById(id);
-        if (i != -1) {
-            addMats[i] = null;
-        }
+        addMats.remove(addMats.get(i));
 
     }
 
     @Override
     public int getIndexById(int id) {
         int index = -1;
-        for (int i = 0; i < addMats.length; i++) {
-            if (addMats[i] != null && addMats[i].getId() == id) {
-                index = i;
+        int curindex = 0;
+        for (AdditionalMaterial addMat : addMats) {
+            if (addMat != null && addMat.getId() == id) {
+                index = curindex;
             }
+            curindex++;
         }
         return index;
     }
