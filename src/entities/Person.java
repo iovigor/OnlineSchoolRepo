@@ -2,7 +2,7 @@ package entities;
 
 import utils.Utils;
 
-public class Person {
+public class Person implements Comparable<Person>  {
 
     private Integer id;
     private String firstName;
@@ -98,5 +98,10 @@ public class Person {
                 ", courseId=" + courseId +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return this.lastName.compareTo(o.getLastName());
     }
 }

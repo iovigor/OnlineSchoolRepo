@@ -1,6 +1,6 @@
 package entities;
 
-public class Course {
+public class Course implements Comparable<Course> {
     private Integer id;
     private String name;
     private static int count;
@@ -77,4 +77,10 @@ public class Course {
                 ", lecture=" + lecture +
                 '}';
     }
+
+    @Override
+    public int compareTo(Course o) {
+        return this.name.compareTo(o.getName());
+    }
+
 }

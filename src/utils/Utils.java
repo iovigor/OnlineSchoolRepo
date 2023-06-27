@@ -5,7 +5,7 @@ import org.w3c.dom.ls.LSOutput;
 import repos.*;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
 import java.util.random.RandomGenerator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +17,7 @@ public class Utils {
         final Scanner scanner = new Scanner(System.in);
         int command = 1;
 
-        while (command!=0) {
+        while (command != 0) {
             System.out.println("Please enter command:");
             System.out.println("7. create lectures");
             System.out.println("81. create objects by console");
@@ -34,6 +34,7 @@ public class Utils {
             System.out.println("17. exceptions testing");
             System.out.println("18. iterator testing");
             System.out.println("19. list testing");
+            System.out.println("20. sort testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -82,6 +83,9 @@ public class Utils {
                 case 19:
                     testList();
                     break;
+                case 20:
+                    testSort();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -96,15 +100,106 @@ public class Utils {
         }
     }
 
-    private void testList(){
+    private void testSort() {
+
+        CourseUtils courseUtils = new CourseUtils();
+        StudentUtils studentUtils = new StudentUtils();
+        TeacherUtils teacherUtils = new TeacherUtils();
+        PersonUtils personUtils = new PersonUtils();
+
+        Course course1 = courseUtils.create(1, "Course A");
+        Course course2 = courseUtils.create(2, "Course B");
+        Course course3 = courseUtils.create(3, "Course C");
+        TreeSet<Course> courses = new TreeSet<>();
+        courses.add(course1);
+        courses.add(course3);
+        courses.add(course2);
+        System.out.println("Courses sorted by name - " + courses);
+
+        Person person1 = personUtils.create(1, "Ivan", "Ivanov", "0671111111", "11@ukr.net");
+        Person person2 = personUtils.create(2, "Andrey", "Andreev", "0671111111", "11@ukr.net");
+        Person person3 = personUtils.create(3, "Mykola", "Mykolaev", "0671111111", "11@ukr.net");
+
+        Student stud1 = studentUtils.create(1, person1);
+        Student stud2 = studentUtils.create(2, person2);
+        Student stud3 = studentUtils.create(3, person3);
+
+        Teacher teacher1 = teacherUtils.create(1, person1);
+        Teacher teacher2 = teacherUtils.create(2, person2);
+        Teacher teacher3 = teacherUtils.create(3, person3);
+
+        TreeSet<Teacher> teachers = new TreeSet<>();
+        teachers.add(teacher1);
+        teachers.add(teacher2);
+        teachers.add(teacher3);
+        System.out.println("Teachers sorted by lastname - " + teachers);
+
+        TreeSet<Student> students = new TreeSet<>();
+        students.add(stud1);
+        students.add(stud2);
+        students.add(stud3);
+        System.out.println("Students sorted by lastname - " + students);
+
+        AdditionalMaterialUtils addMatUtils = new AdditionalMaterialUtils();
+        AdditionalMaterial addMat1 = addMatUtils.create(3, "add mat 1", 1, ResourceType.BOOK);
+        AdditionalMaterial addMat2 = addMatUtils.create(2, "add mat 2", 2, ResourceType.VIDEO);
+        AdditionalMaterial addMat3 = addMatUtils.create(1, "add mat 2", 5, ResourceType.VIDEO);
+
+        TreeSet<AdditionalMaterial> addMaterials = new TreeSet<>();
+        addMaterials.add(addMat1);
+        addMaterials.add(addMat2);
+        addMaterials.add(addMat3);
+        System.out.println("Add Materials sorted by id (by default) - " + addMaterials);
+
+        System.out.println("Please enter the way to sort add materials:");
+        System.out.println("1. ID (by default)");
+        System.out.println("2. Lecture numder");
+        System.out.println("3. Type");
+        System.out.println("0. Exit");
+        final Scanner scanner = new Scanner(System.in);
+        int command = 1;
+
+        while (command != 0) {
+            command = scanner.nextInt();
+            switch (command) {
+                case 1:
+                    System.out.println("Add Materials sorted by id (by default) - " + addMaterials);
+                    break;
+                case 2:
+                    List list1 = new ArrayList(addMaterials);
+                    ComparatorByLectureId comparator1 = new ComparatorByLectureId();
+                    Collections.sort(list1, comparator1);
+                    System.out.println("Add Materials sorted by lecture id - " + list1);
+                    break;
+                case 3:
+                    List list2 = new ArrayList(addMaterials);
+                    ComparatorByResourceType comparator2 = new ComparatorByResourceType();
+                    Collections.sort(list2, comparator2);
+                    System.out.println("Add Materials sorted by type - " + list2);
+                    break;
+                case 0:
+                    setUpMenu();
+                    break;
+                default:
+                    try {
+                        throw new IOException();
+                    } catch (IOException e) {
+                        System.out.println("Incorrect command");
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void testList() {
 
         AdditionMaterialRepo addMatRepo = new AdditionMaterialRepo();
         AdditionalMaterialUtils addMatUtils = new AdditionalMaterialUtils();
 
-        AdditionalMaterial addMat1 = addMatUtils.create(1,"add mat 1", 1, ResourceType.BOOK);
-        AdditionalMaterial addMat2 = addMatUtils.create(2,"add mat 2", 1, ResourceType.VIDEO);
+        AdditionalMaterial addMat1 = addMatUtils.create(1, "add mat 1", 1, ResourceType.BOOK);
+        AdditionalMaterial addMat2 = addMatUtils.create(2, "add mat 2", 1, ResourceType.VIDEO);
 
-        System.out.println("Array after adding = "+addMatRepo.getAll().toString());
+        System.out.println("Array after adding = " + addMatRepo.getAll().toString());
 
     }
 
@@ -116,21 +211,21 @@ public class Utils {
         Homework hw3 = hwUtils.create(3, "task 1");
         Homework hw4 = hwUtils.create(4, "task 1");
 
-        Homework[] homeworks = new Homework[] {hw1, hw2, hw3, hw4};
+        Homework[] homeworks = new Homework[]{hw1, hw2, hw3, hw4};
         SimpleIterator<Homework> simpleIterator = new SimpleIterator(homeworks, 0);
 
         System.out.println("SimpleIterator after creation:");
         System.out.println(simpleIterator);
 
-        System.out.println("Has next = "+simpleIterator.hasNext());
-        System.out.println("Next = "+simpleIterator.next());
+        System.out.println("Has next = " + simpleIterator.hasNext());
+        System.out.println("Next = " + simpleIterator.next());
         System.out.println("After remove :");
         simpleIterator.remove();
         System.out.println(simpleIterator);
-        System.out.println("Find all = "+simpleIterator.findAll().toString());
+        System.out.println("Find all = " + simpleIterator.findAll().toString());
     }
 
-    private void testExceptions(){
+    private void testExceptions() {
 
         HomeworkUtils hwUtils = new HomeworkUtils();
         HomeworkRepo homeworkRepo = new HomeworkRepo();
@@ -157,7 +252,7 @@ public class Utils {
         Homework[] hwArray = homeworkRepo.getAll();
 
         System.out.println("Created homeworks with tasks:");
-        for (Homework hw:
+        for (Homework hw :
                 hwArray) {
             System.out.println(hw);
         }
@@ -165,15 +260,15 @@ public class Utils {
         Lecture lec1 = lecUtils.create(1);
         lec1.setHomeworks(hwArray);
 
-        for (Homework hw:
+        for (Homework hw :
                 hwArray) {
             hw.setLectureId(1);
         }
 
-        System.out.println("Lecture after adding homeworks - "+lec1);
+        System.out.println("Lecture after adding homeworks - " + lec1);
 
         System.out.println("Homeworks after adding to lecture:");
-        for (Homework hw:
+        for (Homework hw :
                 hwArray) {
             System.out.println(hw);
         }
@@ -221,13 +316,13 @@ public class Utils {
         CourseUtils courseUtils = new CourseUtils();
 
         Course course1 = courseUtils.create(1, "First course");
-        System.out.println("Course with name - "+course1);
+        System.out.println("Course with name - " + course1);
 
         Lecture lecture1 = lecUtils.create(1, "First lecture", "Entering lecture");
-        System.out.println("Lecture with name - "+lecture1);
+        System.out.println("Lecture with name - " + lecture1);
 
         Person person1 = personUtils.create(1, "Taras", "Tarasovich", "38067111111", "test@ukr.net");
-        System.out.println("Person with name - "+person1);
+        System.out.println("Person with name - " + person1);
     }
 
     private void testEnum() {
@@ -240,19 +335,19 @@ public class Utils {
         Person student = personUtils.create(1, 1, Role.STUDENT);
         Person teacher = personUtils.create(2, 2, Role.TEACHER);
 
-        System.out.println("Created student - "+student);
-        System.out.println("Created teacher - "+teacher);
+        System.out.println("Created student - " + student);
+        System.out.println("Created teacher - " + teacher);
 
         int lecId = 1;
         Lecture lec1 = lecUtils.create(lecId, teacher.getCourseId(), teacher.getId());
-        System.out.println("Created lecture with teacher - "+lec1);
+        System.out.println("Created lecture with teacher - " + lec1);
 
-        System.out.println("Now we are getting lecture by id = "+lecId);
+        System.out.println("Now we are getting lecture by id = " + lecId);
         lecRepo.getById(lecId);
 
     }
 
-    private void testNewFunctionsOfLectureRepo(){
+    private void testNewFunctionsOfLectureRepo() {
 
         LectureUtils lecUtils = new LectureUtils();
         LectureRepo lecRepo = new LectureRepo();
@@ -281,18 +376,18 @@ public class Utils {
 
     }
 
-    private void printIdForElementsOfArray(){
+    private void printIdForElementsOfArray() {
         Lecture[] lectures = LectureRepo.getLectures();
         for (int i = 0; i < lectures.length; i++) {
             Lecture curLect = lectures[i];
             if (curLect != null) {
                 int id = curLect.getId();
-                System.out.println(""+i+" element of array id is = "+id);
+                System.out.println("" + i + " element of array id is = " + id);
             }
         }
     }
 
-    private void create3LecturesAnd1Course(){
+    private void create3LecturesAnd1Course() {
 
         CourseUtils courseUtils = new CourseUtils();
         Course course1 = courseUtils.create(1);
@@ -308,11 +403,11 @@ public class Utils {
         Lecture lec3 = lecUtils.create(3);
         lec3.setCourseId(course1.getId());
 
-        System.out.println("Courses created = "+Course.getCount());
-        System.out.println("Lectures created = "+Lecture.getCount());
+        System.out.println("Courses created = " + Course.getCount());
+        System.out.println("Lectures created = " + Lecture.getCount());
     }
 
-    private void createLecturesAndExit(){
+    private void createLecturesAndExit() {
         LectureUtils LecUtils = new LectureUtils();
         Lecture lec1 = LecUtils.create(1);
         Lecture lec2 = LecUtils.create(2);
@@ -322,7 +417,7 @@ public class Utils {
         Lecture lec6 = LecUtils.create(6);
         Lecture lec7 = LecUtils.create(7);
         Lecture lec8 = LecUtils.create(8);
-        System.out.println("Number of lections created = "+Lecture.getCount());
+        System.out.println("Number of lections created = " + Lecture.getCount());
         System.exit(0);
     }
 
@@ -457,8 +552,7 @@ public class Utils {
 
         if (emailValidator(email)) {
             System.out.println("The email address " + email + " is valid");
-        }
-        else {
+        } else {
             try {
                 throw new IOException();
             } catch (IOException e) {
@@ -467,12 +561,12 @@ public class Utils {
         }
 
     }
+
     public static void validatePhone(String phone) {
 
         if (phoneValidator(phone)) {
             System.out.println("The phone " + phone + " is valid");
-        }
-        else {
+        } else {
             try {
                 throw new IOException();
             } catch (IOException e) {
@@ -481,13 +575,13 @@ public class Utils {
         }
 
     }
+
     private static final String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     private static final String PHONE_REGEX = "^[0-9]*$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
 
-    private static boolean emailValidator(String email)
-    {
+    private static boolean emailValidator(String email) {
         if (email == null) {
             return false;
         }
@@ -495,8 +589,8 @@ public class Utils {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
     }
-    private static boolean phoneValidator(String phone)
-    {
+
+    private static boolean phoneValidator(String phone) {
         if (phone == null) {
             return false;
         }

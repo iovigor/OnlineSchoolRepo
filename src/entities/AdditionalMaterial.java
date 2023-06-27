@@ -1,6 +1,6 @@
 package entities;
 
-public class AdditionalMaterial{
+public class AdditionalMaterial implements Comparable<AdditionalMaterial> {
     private Integer id;
     private static int count;
     private String name;
@@ -62,5 +62,10 @@ public class AdditionalMaterial{
                 ", lectureId=" + lectureId +
                 ", resourceType=" + resourceType +
                 '}';
+    }
+
+    @Override
+    public int compareTo(AdditionalMaterial o) {
+        return this.id - o.getId();
     }
 }

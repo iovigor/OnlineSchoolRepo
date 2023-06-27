@@ -1,12 +1,26 @@
 package entities;
 
-public class Teacher {
+public class Teacher implements Comparable<Teacher> {
     private Integer id;
     private static int count;
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public Teacher(int id) {
         this.id = id;
         count++;
+    }
+
+    public Teacher(int id, Person person) {
+        this(id);
+        this.person = person;
     }
 
     public int getId() {
@@ -25,6 +39,12 @@ public class Teacher {
     public String toString() {
         return "Teacher{" +
                 "id=" + id +
+                ", person=" + person +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Teacher o) {
+        return this.person.compareTo(o.getPerson());
     }
 }
