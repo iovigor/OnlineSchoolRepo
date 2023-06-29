@@ -16,6 +16,11 @@ public class Homework {
         this.task = task;
     }
 
+    public Homework(int id, String task, int lectureId) {
+        this(id, task);
+        this.lectureId = lectureId;
+    }
+
     public int getLectureId() {
         return lectureId;
     }

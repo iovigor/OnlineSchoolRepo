@@ -20,4 +20,11 @@ public class HomeworkUtils {
         homeworkRepo.add(hw);
         return hw;
     }
+
+    public Homework create(int id, String task, int lectureId){
+        Homework hw = new Homework(id, task, lectureId);
+        HomeworkRepo homeworkRepo = new HomeworkRepo();
+        homeworkRepo.add(hw);
+        return hw;
+    }
 }
