@@ -35,6 +35,7 @@ public class Utils {
             System.out.println("18. iterator testing");
             System.out.println("19. list testing");
             System.out.println("20. sort testing");
+            System.out.println("21. map testing");
             System.out.println("0. Exit");
             command = scanner.nextInt();
             switch (command) {
@@ -86,6 +87,9 @@ public class Utils {
                 case 20:
                     testSort();
                     break;
+                case 21:
+                    testMap();
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -98,6 +102,131 @@ public class Utils {
                     break;
             }
         }
+    }
+
+    private void putAddMatByLectureId(int lectureId, Map<Integer, List<AdditionalMaterial>> addmatMap, AdditionalMaterialUtils addmatUtils) {
+        List<AdditionalMaterial> addmatList = new ArrayList<>();
+        for (int j = 0; j < 10; j++) {
+            AdditionalMaterial addmat = addmatUtils.create(j, "addmat " + j, lectureId, ResourceType.VIDEO);
+            addmatList.add(addmat);
+        }
+        addmatMap.put(lectureId, addmatList);
+    }
+
+    private void putHomeworksByLectureId(int lectureId, Map<Integer, List<Homework>> homeworkMap, HomeworkUtils homeworkUtils) {
+        List<Homework> homeworkList = new ArrayList<>();
+        for (int j = 0; j < 10; j++) {
+            Homework hw = homeworkUtils.create(j, "addmat " + j, lectureId);
+            homeworkList.add(hw);
+        }
+        homeworkMap.put(lectureId, homeworkList);
+    }
+
+    private void printAddmatListBuId(int lectureid, Map<Integer, List<AdditionalMaterial>> addmatMap) {
+        List<AdditionalMaterial> addmatList = addmatMap.get(lectureid);
+        if (Objects.isNull(addmatList)) {
+            System.out.println("lecture id incorrect");
+        } else {
+            for (AdditionalMaterial additionalMaterial : addmatList) {
+                System.out.println(additionalMaterial);
+            }
+        }
+    }
+    private void printhomeworkListById(int lectureid, Map<Integer, List<Homework>> homeworkMap) {
+        List<Homework> homeworkList = homeworkMap.get(lectureid);
+        if (Objects.isNull(homeworkList)) {
+            System.out.println("lecture id incorrect");
+        } else {
+            for (Homework homework : homeworkList) {
+                System.out.println(homework);
+            }
+        }
+    }
+    private void setUpMenuTestMap(Map<Integer, List<AdditionalMaterial>> addmatMap, Map<Integer, List<Homework>> homeworkMap,
+                                  AdditionalMaterialUtils addmatUtils, HomeworkUtils homeworkUtils) {
+
+        System.out.println("Please enter command:");
+        System.out.println("1. view addmatMap by lecture id");
+        System.out.println("2. view homeworkMap by lecture id");
+        System.out.println("3. add by lecture id");
+        System.out.println("4. remove by lecture id");
+        System.out.println("0. Exit");
+        final Scanner scanner = new Scanner(System.in);
+        int command = 1;
+        int lectureid = 0;
+
+        while (command != 0) {
+            command = scanner.nextInt();
+            switch (command) {
+                case 1:
+                    System.out.println("Please enter lecture id:");
+                    lectureid = scanner.nextInt();
+                    printAddmatListBuId(lectureid, addmatMap);
+                    setUpMenuTestMap(addmatMap, homeworkMap, addmatUtils, homeworkUtils);
+                    break;
+                case 2:
+                    System.out.println("Please enter lecture id:");
+                    lectureid = scanner.nextInt();
+                    printhomeworkListById(lectureid, homeworkMap);
+                    setUpMenuTestMap(addmatMap, homeworkMap, addmatUtils, homeworkUtils);
+                    break;
+                case 3:
+                    System.out.println("Please enter lecture id:");
+                    lectureid = scanner.nextInt();
+                    putAddMatByLectureId(lectureid, addmatMap, addmatUtils);
+                    putHomeworksByLectureId(lectureid, homeworkMap, homeworkUtils);
+                    printAddmatListBuId(lectureid, addmatMap);
+                    printhomeworkListById(lectureid, homeworkMap);
+                    setUpMenuTestMap(addmatMap, homeworkMap, addmatUtils, homeworkUtils);
+                    break;
+                case 4:
+                    System.out.println("Please enter lecture id:");
+                    lectureid = scanner.nextInt();
+                    addmatMap.remove(lectureid);
+                    homeworkMap.remove(lectureid);
+                    setUpMenuTestMap(addmatMap, homeworkMap, addmatUtils, homeworkUtils);
+                    break;
+                case 0:
+                    setUpMenu();
+                    break;
+                default:
+                    try {
+                        throw new IOException();
+                    } catch (IOException e) {
+                        System.out.println("Incorrect command");
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void testMap() {
+
+        Map<Integer, List<AdditionalMaterial>> addmatMap = new HashMap<>();
+        Map<Integer, List<Homework>> homeworkMap = new HashMap<>();
+        AdditionalMaterialUtils addmatUtils = new AdditionalMaterialUtils();
+        HomeworkUtils homeworkUtils = new HomeworkUtils();
+
+        for (int i = 0; i < 10; i++) {
+            /*List<AdditionalMaterial> addmatList = new ArrayList<>();
+            List<Homework> homeworkList = new ArrayList<>();
+            for (int j = 0; j < 10; j++) {
+                AdditionalMaterial addmat = addmatUtils.create(j, "addmat "+j, i, ResourceType.VIDEO);
+                Homework hw = homeworkUtils.create(j, "hw "+j, i);
+                addmatList.add(addmat);
+                homeworkList.add(hw);
+            }
+            addmatMap.put(i, addmatList);
+            homeworkMap.put(i, homeworkList);*/
+            putAddMatByLectureId(i, addmatMap, addmatUtils);
+            putHomeworksByLectureId(i, homeworkMap, homeworkUtils);
+        }
+
+        System.out.println("addmatMap - " + addmatMap);
+        System.out.println("homeworkMap - " + homeworkMap);
+
+        setUpMenuTestMap(addmatMap, homeworkMap, addmatUtils, homeworkUtils);
+
     }
 
     private void testSort() {
